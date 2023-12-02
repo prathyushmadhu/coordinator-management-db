@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient("<link>", "<api key>");
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabase = createClient("supabaseUrl", "supabaseAnonKey");
 
 function App() {
   const [volunteers, setvolunteers] = useState([]);
 
   useEffect(() => {
-    getvolunteers();
+    getCountries();
   }, []);
 
   async function getvolunteers() {
     const { data } = await supabase.from("volunteers").select();
-    setvolunteers(data);
+    setCountries(data);
   }
 
   return (
