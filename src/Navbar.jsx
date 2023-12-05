@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react' 
-import '/Navbar.css'
+import Navbar from "./Navbar.css"
 import logo from '../assets/logo.png'
 import hand from '/assets/vol.png'
 
