@@ -1,29 +1,23 @@
-import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-const supabase = createClient("supabaseUrl", "supabaseAnonKey");
+import GetVolunteers from './getvolunteers';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Login from './Login';
+import GetEvents from './GetEvents';
+import { SupabaseProvider, useSupabase } from './SupabaseContext'
+
 
 function App() {
-  const [volunteers, setvolunteers] = useState([]);
-
-  useEffect(() => {
-    getCountries();
-  }, []);
-
-  async function getvolunteers() {
-    const { data } = await supabase.from("volunteers").select();
-    setCountries(data);
-  }
-
   return (
-    <ul>
-      {volunteers.map((volunteer) => (
-        <li key={volunteer.name}>{volunteer.name} - {volunteer.phno}</li>
-
-      ))}
-    </ul>
+    <SupabaseProvider>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/volunteer" element={<GetVolunteers />} />
+        <Route path="/coordinator" element={<GetEvents />} />
+        
+      </Routes>
+    </Router>
+    </SupabaseProvider>
   );
 }
 
