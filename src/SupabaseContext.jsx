@@ -5,7 +5,7 @@ import React, { createContext, useContext } from 'react';
 const SupabaseContext = createContext();
 
 const SupabaseProvider = ({ children }) => {
-  const supabase = createClient('url', 'key');
+  const supabase = createClient(<'url'>,<'link'>);
 
   return (
     <SupabaseContext.Provider value={{ supabase }}>

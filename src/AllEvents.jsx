@@ -6,7 +6,7 @@ import './table.css';
 import { useUser } from "./UserContext";
 import { useNavigate } from 'react-router-dom';
 
-function GetEvents(){
+function AllEvents(){
     const { supabase } = useSupabase();
     const navigate = useNavigate();
     const {userId} = useUser();
@@ -21,35 +21,29 @@ function GetEvents(){
 
   async function getevents() {
     console.log(userId);
-    const { data } = await supabase.from('events').select('eid,name,location,date,organisations!inner(oid)').eq('organisations.uid',userId);
+    const { data } = await supabase.from('events').select();
     
      setevents(data);
   }
-  async function addEvent() {
-    navigate('/addevent')
-  }
-  async function backtosignin() {
-    navigate('/signin')
-  }
 
+  async function back() {
+    navigate('/');
+  }
+ 
   return (
     <div>
     <div>
-    <button type="button" onClick={addEvent}>
-            Add event
-          </button>
+      <h2>List of Events To Volunteer</h2>
+      <Table columns={columns} headings={headings} data={events} className="event-table" linkPath='/join'  />
     </div>
     <div>
-      <h2>List of Events You Added</h2>
-      <Table columns={columns} headings={headings} data={events} className="event-table" linkPath='/events'  />
-    </div>
-    <div>
-            <button type="button" onClick={backtosignin} >
-                Logout
-            </button>
+        <button type="button" onClick={back}>
+                Back
+              </button>
         </div>
+    
     </div>
   );
 }
 
-export default GetEvents;
+export default AllEvents;
